@@ -80,6 +80,8 @@ call function once after a defined duration
 
 call function repeatedly after a defined duration
 
+if the called function sets @error <> 0 then the setInterval will be cancelled
+
 <table>
   <tr>
     <th colspan="3">syntax</th>
