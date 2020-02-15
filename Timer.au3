@@ -80,19 +80,19 @@ Func setInterval($function = "", $delay = 0, $arg1 = Null, $arg2 = Null, $arg3 =
 EndFunc
 
 Func __setIntervalProc($hWnd, $iMsg, $iIDTimer, $iTime)
+	ConsoleWrite('__setIntervalProc'&@CRLF)
 	Local $i
 	For $i = 0 To $__g_iTimerReferenceTableSize - 1
 		If $__g_aTimerReferenceTable[$i][0] = $iIDTimer Then
+			Local $result
 			If $__g_aTimerReferenceTable[$i][2] = Null Then
-				If Call($__g_aTimerReferenceTable[$i][1]) = False Then
-					_Timer_KillTimer($hWnd, $iIDTimer)
-					$__g_aTimerReferenceTable[$i][0] = ""
-				EndIf
+				$result = Call($__g_aTimerReferenceTable[$i][1])
 			Else
-				If Call($__g_aTimerReferenceTable[$i][1], $__g_aTimerReferenceTable[$i][2]) = False Then
-					_Timer_KillTimer($hWnd, $iIDTimer)
-					$__g_aTimerReferenceTable[$i][0] = ""
-				EndIf
+				$result = Call($__g_aTimerReferenceTable[$i][1], $__g_aTimerReferenceTable[$i][2])
+			EndIf
+			If @error <> 0 Then
+				_Timer_KillTimer($hWnd, $iIDTimer)
+				$__g_aTimerReferenceTable[$i][0] = ""
 			EndIf
 			Return
 		EndIf
