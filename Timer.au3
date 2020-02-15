@@ -80,7 +80,6 @@ Func setInterval($function = "", $delay = 0, $arg1 = Null, $arg2 = Null, $arg3 =
 EndFunc
 
 Func __setIntervalProc($hWnd, $iMsg, $iIDTimer, $iTime)
-	ConsoleWrite('__setIntervalProc'&@CRLF)
 	Local $i
 	For $i = 0 To $__g_iTimerReferenceTableSize - 1
 		If $__g_aTimerReferenceTable[$i][0] = $iIDTimer Then
