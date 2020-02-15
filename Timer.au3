@@ -37,6 +37,17 @@ Func setTimeout($function = "", $delay = 0, $arg1 = Null, $arg2 = Null, $arg3 = 
 	Return SetError(1, 0, 0)
 EndFunc
 
+Func clearTimeout($iIDTimer)
+	Local $i
+	For $i = 0 To $__g_iTimerReferenceTableSize - 1
+		If $__g_aTimerReferenceTable[$i][0] = $iIDTimer Then
+			_Timer_KillTimer($hWnd, $iIDTimer)
+			$__g_aTimerReferenceTable[$i][0] = ""
+			Return
+		EndIf
+	Next
+EndFunc
+
 Func __setTimeoutProc($hWnd, $iMsg, $iIDTimer, $iTime)
 	Local $i
 	For $i = 0 To $__g_iTimerReferenceTableSize - 1
@@ -77,6 +88,10 @@ Func setInterval($function = "", $delay = 0, $arg1 = Null, $arg2 = Null, $arg3 =
 	Next
 
 	Return SetError(1, 0, 0)
+EndFunc
+
+Func clearInterval($iIDTimer)
+	clearTimeout($iIDTimer)
 EndFunc
 
 Func __setIntervalProc($hWnd, $iMsg, $iIDTimer, $iTime)
