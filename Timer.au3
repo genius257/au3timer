@@ -41,7 +41,7 @@ Func clearTimeout($iIDTimer)
 	Local $i
 	For $i = 0 To $__g_iTimerReferenceTableSize - 1
 		If $__g_aTimerReferenceTable[$i][0] = $iIDTimer Then
-			_Timer_KillTimer($hWnd, $iIDTimer)
+			_Timer_KillTimer($__g_hTimerWnd, $iIDTimer)
 			$__g_aTimerReferenceTable[$i][0] = ""
 			Return
 		EndIf
